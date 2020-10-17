@@ -1,7 +1,7 @@
-package converter.Application.Converters;
+package converter.Core.Converters;
 
-import converter.Application.Helpers.LinkInfoHelper;
-import converter.Application.Interfaces.ILinkConverter;
+import converter.Core.Helpers.LinkInfoHelper;
+import converter.Core.Interfaces.ILinkConverter;
 import converter.Domain.DeepLinkDto;
 import converter.Domain.WebUrlDto;
 

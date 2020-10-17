@@ -1,4 +1,4 @@
-package converter.Application.Extensions;
+package converter.Core.Extensions;
 
 public class StringExtensions {
     public static String ConvertFromTurkishCharacters(String input)

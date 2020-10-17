@@ -1,18 +1,17 @@
-package converter.Application.Converters;
+package converter.Core.Converters;
 
-import converter.Application.Helpers.LinkInfoHelper;
-import converter.Application.Interfaces.ILinkConverter;
+import converter.Core.Helpers.LinkInfoHelper;
+import converter.Core.Interfaces.ILinkConverter;
 import converter.Domain.DeepLinkDto;
 import converter.Domain.WebUrlDto;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
-import java.util.Dictionary;
-import java.util.Hashtable;
+
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static converter.Application.Extensions.StringExtensions.ConvertFromTurkishCharacters;
+import static converter.Core.Extensions.StringExtensions.ConvertFromTurkishCharacters;
 
 public class HomePageLinkConverter implements ILinkConverter {
     //private Dictionary<Integer,String> SectionMap = new Hashtable<Integer,String>();

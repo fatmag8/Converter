@@ -1,4 +1,4 @@
-package converter.Application.Interfaces;
+package converter.Core.Interfaces;
 
 import converter.Domain.DeepLinkDto;
 import converter.Domain.LinkDto;
