@@ -8,4 +8,7 @@ import lombok.Setter;
 public class WebUrlDto {
     private String WebUrl;
 
+    public WebUrlDto(String webUrl) {
+        WebUrl = webUrl;
+    }
 }

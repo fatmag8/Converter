@@ -7,4 +7,8 @@ import lombok.Setter;
 @Setter
 public class DeepLinkDto {
     private String DeepLink;
+
+    public DeepLinkDto(String deepLink) {
+        DeepLink = deepLink;
+    }
 }
