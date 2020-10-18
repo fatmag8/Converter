@@ -19,10 +19,10 @@ public class HomePageLinkConverter implements ILinkConverter {
 
     public HomePageLinkConverter()//Deeplink SectionId WebUrl karşılıkları
     {
-        SectionMap.put(1, "Kadın");
-        SectionMap.put(2, "Erkek");
-        SectionMap.put(3, "Süpermarket");
-        SectionMap.put(4, "Çocuk");
+        SectionMap.put(1, "kadın");
+        SectionMap.put(2, "erkek");
+        SectionMap.put(3, "süpermarket");
+        SectionMap.put(4, "çocuk");
     }
 
     @Override
@@ -30,7 +30,8 @@ public class HomePageLinkConverter implements ILinkConverter {
         Pattern p = Pattern.compile("(.*butik/liste*.)(\\w+)");
         Matcher m = p.matcher(webUrlObj.getWebUrl());
         m.find();
-        int SectionId=SectionMap.getKey(m.group(2));
+        String group = m.group(2);
+        int SectionId=SectionMap.getKey(group);
         DeepLinkDto deeplinkDto = new DeepLinkDto(LinkInfoHelper.siteDeeplink+"?Page=Home&SectionId="+SectionId);
         return deeplinkDto;
 
