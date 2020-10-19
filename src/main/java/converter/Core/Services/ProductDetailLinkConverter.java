@@ -1,13 +1,14 @@
-package converter.Core.Converters;
+package converter.Core.Services;
 
 import converter.Core.Helpers.LinkInfoHelper;
 import converter.Core.Interfaces.ILinkConverter;
 import converter.Domain.DeepLinkDto;
 import converter.Domain.WebUrlDto;
+import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@Service
 public class ProductDetailLinkConverter implements ILinkConverter {
     @Override
     public DeepLinkDto WebUrlToDeeplink(WebUrlDto webUrlObj) {
@@ -19,9 +20,9 @@ public class ProductDetailLinkConverter implements ILinkConverter {
         Matcher m2=Pattern.compile("(.*boutiqueId=)(\\d+)").matcher(webUrlObj.getWebUrl());
         Matcher m3=Pattern.compile("(.*merchantId=)(\\d+)").matcher(webUrlObj.getWebUrl());
 
-        c_link+=(m2.find() ? "CampaignId="+m2.group(2) : "")+(m3.find() ? "MerchantId="+m3.group(2) : "");
-        DeepLinkDto deeplinkDto = new DeepLinkDto(c_link);
-        return deeplinkDto;
+        c_link+=(m2.find() ? "&CampaignId="+m2.group(2) : "")+(m3.find() ? "&MerchantId="+m3.group(2) : "");
+        return new DeepLinkDto(c_link);
+
     }
 
     @Override
@@ -39,8 +40,7 @@ public class ProductDetailLinkConverter implements ILinkConverter {
         if(m3.find()){
             c_link +=(c_link.contains("?") ? "&" : "?")+"merchantId="+m3.group(2);
         }
-        WebUrlDto webUrlDto = new WebUrlDto(c_link);
+        return new WebUrlDto(c_link);
 
-        return webUrlDto;
     }
 }

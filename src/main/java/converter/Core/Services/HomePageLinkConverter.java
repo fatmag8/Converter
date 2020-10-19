@@ -1,4 +1,4 @@
-package converter.Core.Converters;
+package converter.Core.Services;
 
 import converter.Core.Helpers.LinkInfoHelper;
 import converter.Core.Interfaces.ILinkConverter;
@@ -6,20 +6,21 @@ import converter.Domain.DeepLinkDto;
 import converter.Domain.WebUrlDto;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static converter.Core.Extensions.StringExtensions.ConvertFromTurkishCharacters;
-
+@Service
 public class HomePageLinkConverter implements ILinkConverter {
     //private Dictionary<Integer,String> SectionMap = new Hashtable<Integer,String>();
     private BidiMap<Integer,String> SectionMap = new DualHashBidiMap<>();
 
     public HomePageLinkConverter()//Deeplink SectionId WebUrl karşılıkları
     {
-        SectionMap.put(1, "kadın");
+        SectionMap.put(1, "kadin");
         SectionMap.put(2, "erkek");
         SectionMap.put(3, "süpermarket");
         SectionMap.put(4, "çocuk");
@@ -32,8 +33,8 @@ public class HomePageLinkConverter implements ILinkConverter {
         m.find();
         String group = m.group(2);
         int SectionId=SectionMap.getKey(group);
-        DeepLinkDto deeplinkDto = new DeepLinkDto(LinkInfoHelper.siteDeeplink+"?Page=Home&SectionId="+SectionId);
-        return deeplinkDto;
+        return new DeepLinkDto(LinkInfoHelper.siteDeeplink+"?Page=Home&SectionId="+SectionId);
+
 
     }
 
@@ -43,8 +44,7 @@ public class HomePageLinkConverter implements ILinkConverter {
         Matcher m = p.matcher(deeplinkObj.getDeepLink());
         m.find();
         String SectionName=SectionMap.get(Integer.parseInt(m.group(2)));
-        WebUrlDto webUrlDto = new WebUrlDto(LinkInfoHelper.siteWeb+"/butik/liste/"+ConvertFromTurkishCharacters(SectionName).toLowerCase(Locale.US));
-        //türkçe karakter olayı???
-        return webUrlDto;
+        return  new WebUrlDto(LinkInfoHelper.siteWeb+"/butik/liste/"+ConvertFromTurkishCharacters(SectionName).toLowerCase(Locale.US));
+
     }
 }

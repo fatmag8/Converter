@@ -1,37 +1,38 @@
 package converter.Core.Helpers;
-import converter.Core.Converters.GeneralLinkConverter;
-import converter.Core.Converters.HomePageLinkConverter;
-import converter.Core.Converters.ProductDetailLinkConverter;
-import converter.Core.Converters.SearchPageLinkConverter;
+import converter.Core.Services.GeneralLinkConverter;
+import converter.Core.Services.HomePageLinkConverter;
+import converter.Core.Services.ProductDetailLinkConverter;
+import converter.Core.Services.SearchPageLinkConverter;
 import converter.Core.Interfaces.IConverterHelper;
 import converter.Core.Interfaces.ILinkConverter;
 import converter.Domain.DeepLinkDto;
 import converter.Domain.Enums.PageType;
 import converter.Domain.WebUrlDto;
 
+
 public class ConverterHelper implements IConverterHelper {
-    ILinkConverter _homeLinkConverter = new HomePageLinkConverter();
-    ILinkConverter _productLinkConverter = new ProductDetailLinkConverter();
-    ILinkConverter _searchLinkConverter = new SearchPageLinkConverter();
-    ILinkConverter _otherLinkConverter = new GeneralLinkConverter();
+    ILinkConverter homePageLinkConverter = new HomePageLinkConverter();
+    ILinkConverter productDetailLinkConverter = new ProductDetailLinkConverter();
+    ILinkConverter searchPageLinkConverter= new SearchPageLinkConverter();
+    ILinkConverter generalLinkConverter = new GeneralLinkConverter();
     @Override
     public DeepLinkDto ConvertWebLinkToDeeplink(WebUrlDto webUrlDto) {
         PageType type = GetPageLinkType(webUrlDto.getWebUrl(),true);
 
-        DeepLinkDto deeplinkDto = null;
+        DeepLinkDto deeplinkDto ;
         switch (type)
         {
             case HomePage:
-                deeplinkDto = _homeLinkConverter.WebUrlToDeeplink(webUrlDto);
+                deeplinkDto = homePageLinkConverter.WebUrlToDeeplink(webUrlDto);
                 break;
             case ProductDetailPage:
-                deeplinkDto = _productLinkConverter.WebUrlToDeeplink(webUrlDto);
+                deeplinkDto = productDetailLinkConverter.WebUrlToDeeplink(webUrlDto);
                 break;
             case SearchPage:
-                deeplinkDto = _searchLinkConverter.WebUrlToDeeplink(webUrlDto);
+                deeplinkDto = searchPageLinkConverter.WebUrlToDeeplink(webUrlDto);
                 break;
             default:
-                deeplinkDto = _otherLinkConverter.WebUrlToDeeplink(webUrlDto);
+                deeplinkDto = generalLinkConverter.WebUrlToDeeplink(webUrlDto);
                 break;
         }
 
@@ -42,20 +43,20 @@ public class ConverterHelper implements IConverterHelper {
     @Override
     public WebUrlDto ConvertDeeplinkToWebLink(DeepLinkDto deeplinkDto) {
         PageType type = GetPageLinkType(deeplinkDto.getDeepLink(), false);
-        WebUrlDto webUrlDto = null;
+        WebUrlDto webUrlDto ;
         switch (type)
         {
             case HomePage:
-                webUrlDto = _homeLinkConverter.DeeplinkToWebUrl(deeplinkDto);
+                webUrlDto = homePageLinkConverter.DeeplinkToWebUrl(deeplinkDto);
                 break;
             case ProductDetailPage:
-                webUrlDto = _productLinkConverter.DeeplinkToWebUrl(deeplinkDto);
+                webUrlDto = productDetailLinkConverter.DeeplinkToWebUrl(deeplinkDto);
                 break;
             case SearchPage:
-                webUrlDto = _searchLinkConverter.DeeplinkToWebUrl(deeplinkDto);
+                webUrlDto = searchPageLinkConverter.DeeplinkToWebUrl(deeplinkDto);
                 break;
             default:
-                webUrlDto = _otherLinkConverter.DeeplinkToWebUrl(deeplinkDto);
+                webUrlDto = generalLinkConverter.DeeplinkToWebUrl(deeplinkDto);
                 break;
         }
 

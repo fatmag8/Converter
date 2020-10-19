@@ -1,4 +1,5 @@
-package converter.EntityFramework.Models;
+package converter.EntityFramework;
+
 
 import lombok.Data;
 import javax.persistence.*;
@@ -19,4 +20,10 @@ public class LinkEntity {
 
     @Column(name="Request_Response_Type")
     private String type;
+
+    public LinkEntity(String request,String response,String type) {
+        this.type=type;
+        this.request=request;
+        this.response=response;
+    }
 }

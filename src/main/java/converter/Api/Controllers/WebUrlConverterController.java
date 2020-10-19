@@ -1,25 +1,41 @@
 package converter.Api.Controllers;
-import converter.Contracts.IURLConverterController;
-import converter.Core.Interfaces.IConverterHelper;
+import converter.Api.ControllersInterfaces.IURLConverterController;
+import converter.Api.Response.ConverterResponse;
+import converter.Core.Helpers.ConverterHelper;
 import converter.Domain.DeepLinkDto;
 import converter.Domain.WebUrlDto;
-import org.springframework.web.bind.annotation.RequestMapping;
+import converter.EntityFramework.LinkEntity;
+import converter.EntityFramework.LinkRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Logger;
+
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class WebUrlConverterController implements IURLConverterController {
-    private Logger _logger;
-    private IConverterHelper _helper;
+    @Autowired private LinkRepository repo;
+    ConverterHelper converterHelper=new ConverterHelper();
 
-    public WebUrlConverterController(Logger _logger, IConverterHelper _helper) {
-        this._logger = _logger;
-        this._helper = _helper;
-    }
-
-    @RequestMapping("/")
+    @GetMapping("/CreateDeepLinkFromUrl")
     @Override
-    public DeepLinkDto GetDeeplink(WebUrlDto rDto) {
-        return _helper.ConvertWebLinkToDeeplink(rDto);
-    }
+    public ConverterResponse GetDeeplink(@RequestParam WebUrlDto rDto) {
+        try{
+            DeepLinkDto deeplink=converterHelper.ConvertWebLinkToDeeplink(rDto);
+            LinkEntity linkEntity=new LinkEntity(rDto.getWebUrl(),deeplink.getDeepLink(),"WebUrlToDeepLink");
+            repo.save(linkEntity);
+            log.info("Succesfully inserted DB");
+            return new ConverterResponse(deeplink, HttpStatus.OK,"Success");
+        }
+        catch (Exception e){
+            log.error("Exception: ",e);
+            return new ConverterResponse(null,HttpStatus.INTERNAL_SERVER_ERROR,"ERROR");
+        }
+        }
+
 }

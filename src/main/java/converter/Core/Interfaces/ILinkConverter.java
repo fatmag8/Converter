@@ -2,9 +2,11 @@ package converter.Core.Interfaces;
 
 import converter.Domain.DeepLinkDto;
 import converter.Domain.WebUrlDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface ILinkConverter {
-    public DeepLinkDto WebUrlToDeeplink(WebUrlDto webUrlObj);
+    DeepLinkDto WebUrlToDeeplink(WebUrlDto webUrlObj) ;
 
-    public WebUrlDto DeeplinkToWebUrl(DeepLinkDto deeplinkObj);
+    WebUrlDto DeeplinkToWebUrl(DeepLinkDto deeplinkObj)  ;
 }
