@@ -13,7 +13,6 @@ public class ProductDetailLinkConverter implements ILinkConverter {
     @Override
     public DeepLinkDto WebUrlToDeeplink(WebUrlDto webUrlObj) {
         Pattern p = Pattern.compile("(.*-p-)(\\d+)");
-        //Pattern p = Pattern.compile("(https://www.trendyol.com/)(\\w+)(/)(\\w+)(-p-)(\\d+)(.*?)(\\w+)");
         Matcher m = p.matcher(webUrlObj.getWebUrl());
         m.find();
         String c_link= LinkInfoHelper.siteDeeplink+"?Page=Product&ContentId="+m.group(2);

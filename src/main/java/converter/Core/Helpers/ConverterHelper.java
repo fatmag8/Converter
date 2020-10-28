@@ -8,13 +8,16 @@ import converter.Core.Interfaces.ILinkConverter;
 import converter.Domain.DeepLinkDto;
 import converter.Domain.Enums.PageType;
 import converter.Domain.WebUrlDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-
+@Service
+@RequiredArgsConstructor
 public class ConverterHelper implements IConverterHelper {
-    ILinkConverter homePageLinkConverter = new HomePageLinkConverter();
-    ILinkConverter productDetailLinkConverter = new ProductDetailLinkConverter();
-    ILinkConverter searchPageLinkConverter= new SearchPageLinkConverter();
-    ILinkConverter generalLinkConverter = new GeneralLinkConverter();
+    private final ILinkConverter homePageLinkConverter ;
+    private final ILinkConverter productDetailLinkConverter ;
+    private final ILinkConverter searchPageLinkConverter;
+    private final ILinkConverter generalLinkConverter ;
     @Override
     public DeepLinkDto ConvertWebLinkToDeeplink(WebUrlDto webUrlDto) {
         PageType type = GetPageLinkType(webUrlDto.getWebUrl(),true);

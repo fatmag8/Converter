@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 import static converter.Core.Extensions.StringExtensions.ConvertFromTurkishCharacters;
 @Service
 public class HomePageLinkConverter implements ILinkConverter {
-    //private Dictionary<Integer,String> SectionMap = new Hashtable<Integer,String>();
     private BidiMap<Integer,String> SectionMap = new DualHashBidiMap<>();
 
     public HomePageLinkConverter()//Deeplink SectionId WebUrl karşılıkları

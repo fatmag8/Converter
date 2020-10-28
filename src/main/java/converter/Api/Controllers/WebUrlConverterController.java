@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Slf4j
+@Slf4j//log için
 @RestController
 @RequiredArgsConstructor
 public class WebUrlConverterController implements IURLConverterController {
-    @Autowired private LinkRepository repo;
-    ConverterHelper converterHelper=new ConverterHelper();
+    final private LinkRepository repo;
+    final private ConverterHelper converterHelper;//=new ConverterHelper();
 
     @GetMapping("/CreateDeepLinkFromUrl")
     @Override

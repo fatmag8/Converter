@@ -17,16 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class DeepLinkConverterController implements IDeeplinkConverterController {
 
-    ConverterHelper converterHelper=new ConverterHelper();
-    @Autowired private LinkRepository repo;
+    final private ConverterHelper converterHelper;//=new ConverterHelper();
+    final private LinkRepository repo;
 
 
     @GetMapping("/CreateUrlFromDeepLink")
     public ConverterResponse GetWebUrl(@RequestParam DeepLinkDto rDto) {
         try {
-            //DeepLinkDto rDto2=new DeepLinkDto(rDto);
-
-
             WebUrlDto Weburl=converterHelper.ConvertDeeplinkToWebLink(rDto);
             LinkEntity linkEntity=new LinkEntity(rDto.getDeepLink(),Weburl.getWebUrl(),"DeepLinkToWebUrl");
             repo.save(linkEntity);
@@ -38,6 +35,7 @@ public class DeepLinkConverterController implements IDeeplinkConverterController
             log.error("Exception: ",e);
 
             return new ConverterResponse(null,HttpStatus.INTERNAL_SERVER_ERROR,"ERROR");
+
         }
 
 
